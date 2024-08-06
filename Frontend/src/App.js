@@ -1,13 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
 
 function App() {
   return (
-    <div className=' flex flex-col justify-center items-center h-[100vh]'>
-      <h2 className=' font-extrabold text-blue-600 capitalize  text-3xl'> hello jee kaise hooo </h2>
-      <h3 className=' text-green-800  font-extrabold text-[4rem] capitalize'> Ankit kumar jha   </h3>
-    
-    </div>
+    <Router>
+      
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+   
+    </Router>
   );
 }
 
