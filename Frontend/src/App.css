@@ -1,38 +1,177 @@
-.App {
-  text-align: center;
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@200&display=swap');
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  animation: gradientAnimation 5s ease infinite;
+  font-family: 'Cascadia Code', monospace;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.note {
+  position: absolute;
+  background: rgba(45, 55, 72, 0.7); /* Increased transparency */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  width: 200px;
+  cursor: move;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.note:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.note-content {
+  font-size: 14px;
+  color: #f0f0f0;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.note-footer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.note-due-date {
+  font-size: 12px;
+  color: #cbd5e0;
+  display: flex;
+  align-items: center;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff6b6b;
+  font-size: 20px;
+}
+
+.delete-button:hover {
+  color: #ff4f4f;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: rgba(45, 55, 72, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #edf2f7;
+  text-align: center;
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal textarea {
+  width: calc(100% - 20px);
+  height: 100px;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(26, 32, 44, 0.9);
+  color: #edf2f7;
+}
+
+.color-picker {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.color-bubble {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.color-bubble.selected {
+  border-color: #81e6d9;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.check-icon {
+  color: #ffffff;
+}
+
+.custom-color-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.modal button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #38b2ac;
+  color: #1a202c;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #319795;
+}
+.add-note-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #38b2ac;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-note-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(56, 178, 172, 0.7);
+}
+
+.add-note-button svg {
+  color: #1a202c;
+  width: 30px;
+  height: 30px;
 }
