@@ -3,17 +3,12 @@ import { FaTrashAlt, FaCalendarAlt } from "react-icons/fa";
 import "../../App.css";
 
 const Note = forwardRef(
-  ({ content, initialPos, onDelete, color, textColor, dueDate, ...props }, ref) => {
+  ({ id, content, onDelete, color, textColor, dueDate, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className="note"
-        style={{
-          left: `${initialPos?.x}px`,
-          top: `${initialPos?.y}px`,
-          position: "absolute",
-          backgroundColor: color,
-        }}
+        style={{ backgroundColor: color }}
         {...props}
       >
         <div className="note-content" style={{ color: textColor }}>
@@ -26,7 +21,7 @@ const Note = forwardRef(
               {new Date(dueDate).toLocaleTimeString()}
             </div>
           )}
-          <button onClick={onDelete} className="delete-button">
+          <button onClick={() => onDelete(id)} className="delete-button">
             <FaTrashAlt />
           </button>
         </div>

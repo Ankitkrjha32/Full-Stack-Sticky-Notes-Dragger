@@ -15,8 +15,8 @@ function ProtectedRoute({ element, ...rest }) {
 function App() {
   const [notes, setNotes] = React.useState([
     { id: 1, text: "Ankit Kumar Jha ", color: " #1a202c", position: { x: 100, y: 100 } },
-    { id: 2, text: "Full Stack Developer ", color: " #1a202c", position: { x: 100, y: 100 } },
-    { id: 3, text: " Team Ram hackathon COPS", color: " #1a202c", position: { x: 100, y: 200 } },
+    { id: 2, text: "Full Stack Developer ", color: " #1a202c", position: { x: 100, y: 200 } },
+    { id: 3, text: " Team Ram hackathon COPS", color: " #1a202c", position: { x: 100, y: 300 } },
   ]);
 
   return (

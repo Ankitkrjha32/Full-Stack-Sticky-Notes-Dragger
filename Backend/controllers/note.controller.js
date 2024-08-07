@@ -1,87 +1,56 @@
-// controllers/note.controller.js
-import { Note } from '../models/note.model.js';
+import Note from '../models/note.models.js'; 
 
-// Middleware to ensure the user is authenticated
-import authenticateToken from '../middleware/auth.js';
 
 // Create a new note
 export const createNote = async (req, res) => {
   try {
-    const { text, color, textColor, dueDate, position } = req.body;
-    const userId = req.user.userId; // Get userId from token
-
-    if (!text) {
-      return res.status(400).json({ message: 'Note text is required', success: false });
-    }
-
+    const { text, color, textColor, position, dueDate } = req.body;
     const newNote = new Note({
-      userId,
+      userId: req.id,  // Assumes you have user ID from the isAuthenticated middleware
       text,
       color,
       textColor,
-      dueDate,
-      position
+      position,
+      dueDate
     });
-
     const savedNote = await newNote.save();
-    return res.status(201).json({ message: 'Note created successfully', note: savedNote, success: true });
+    res.status(201).json({ success: true, note: savedNote });
   } catch (error) {
-    console.error('Error in createNote:', error);
-    return res.status(500).json({ message: 'Internal server error', success: false });
+    console.error('Error creating note:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
-// Get notes for the current user
+
 export const getNotes = async (req, res) => {
   try {
-    const userId = req.user.userId; // Get userId from token
-
-    const notes = await Note.find({ userId });
-    return res.status(200).json({ notes, success: true });
+    const notes = await Note.find({ userId: req.id });
+    res.status(200).json({ success: true, notes });
   } catch (error) {
-    console.error('Error in getNotes:', error);
-    return res.status(500).json({ message: 'Internal server error', success: false });
+    res.status(500).json({ success: false, message: 'Error fetching notes', error });
   }
 };
 
-// Update a note by ID
+// Update a note
 export const updateNote = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.userId; // Get userId from token
-
-    const updatedNote = await Note.findOneAndUpdate(
-      { _id: id, userId },
-      req.body,
-      { new: true }
-    );
-
-    if (!updatedNote) {
-      return res.status(404).json({ message: 'Note not found', success: false });
-    }
-
-    return res.status(200).json({ message: 'Note updated successfully', note: updatedNote, success: true });
+    const updatedNote = await Note.findOneAndUpdate({ _id: id, userId: req.id }, req.body, { new: true });
+    if (!updatedNote) return res.status(404).json({ success: false, message: 'Note not found' });
+    res.status(200).json({ success: true, note: updatedNote });
   } catch (error) {
-    console.error('Error in updateNote:', error);
-    return res.status(500).json({ message: 'Internal server error', success: false });
+    res.status(500).json({ success: false, message: 'Error updating note', error });
   }
 };
 
-// Delete a note by ID
+// Delete a note
 export const deleteNote = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.userId; // Get userId from token
-
-    const deletedNote = await Note.findOneAndDelete({ _id: id, userId });
-
-    if (!deletedNote) {
-      return res.status(404).json({ message: 'Note not found', success: false });
-    }
-
-    return res.status(200).json({ message: 'Note deleted successfully', success: true });
+    const deletedNote = await Note.findOneAndDelete({ _id: id, userId: req.id });
+    if (!deletedNote) return res.status(404).json({ success: false, message: 'Note not found' });
+    res.status(200).json({ success: true, message: 'Note deleted successfully' });
   } catch (error) {
-    console.error('Error in deleteNote:', error);
-    return res.status(500).json({ message: 'Internal server error', success: false });
+    res.status(500).json({ success: false, message: 'Error deleting note', error });
   }
 };

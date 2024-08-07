@@ -46,7 +46,7 @@ const Login = () => {
         navigate('/notes');
         toast.success(res.data.message);
       }
-    const user = { name: 'John Doe', profilePicture: 'path/to/profile-picture.jpg' }; // Example user object
+    const user = { name: 'John Doe', profilePicture: 'path/to/profile-picture.jpg' }; 
     setUser(user);
     }
      catch (error) {

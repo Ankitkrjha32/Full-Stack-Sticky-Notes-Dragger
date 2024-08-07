@@ -53,7 +53,7 @@ const Navbar = () => {
             {user ? (
               <>
                 <li>
-                  <span className="text-center text-xl text-gray-50 font-bold uppercase">Hello, {user.fullname}</span>
+                  <span className="text-center text-[16px] text-gray-50 font-serif uppercase"> Hello, {user.fullname}</span>
                 </li>
                 <li>
                   <button

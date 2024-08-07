@@ -1,8 +1,7 @@
 import { User } from "../models/user.model.js";
 // import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-// import getDataUri from "../utils/datauri.js";
-// import cloudinary from "../utils/cloudinary.js";
+
 
 // import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
@@ -78,13 +77,7 @@ export const login = async (req, res) => {
                 success: false,
             })
         };
-        // check role is correct or not
-        // if (role !== user.role) {
-        //     return res.status(400).json({
-        //         message: "Account doesn't exist with current role.",
-        //         success: false
-        //     })
-        // };
+      
 
         const tokenData = {
             userId: user._id
@@ -150,11 +143,7 @@ export const updateProfile = async (req, res) => {
         if(bio) user.profile.bio = bio
         if(skills) user.profile.skills = skillsArray
       
-        // resume comes later here...
-        if(cloudResponse){
-            user.profile.resume = cloudResponse.secure_url // save the cloudinary url
-            user.profile.resumeOriginalName = file.originalname // Save the original file name
-        }
+       
 
 
         await user.save();

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import axios from "axios";
 
 const AddNoteModal = ({ show, onClose, addNote }) => {
   const [noteText, setNoteText] = useState("");
@@ -14,19 +15,26 @@ const AddNoteModal = ({ show, onClose, addNote }) => {
   const textColors = ["#000000", "#ffffff", "#ff5722", "#4caf50", "#3f51b5"];
 
   const handleAddNote = () => {
-    addNote({
+    const newNote = {
       text: noteText,
       color: noteColor,
       textColor: textColor,
-      id: Math.random().toString(36).substr(2, 9),
-      position: { x: 100, y: 100 },
-    });
-    setNoteText("");
-    setNoteColor("#ffffff");
-    setTextColor("#000000");
-    setSelectedNoteColor("");
-    setSelectedTextColor("");
-    onClose();
+      position: { x: 100, y: 100 }  // Default position
+    };
+
+    axios.post('http://localhost:8000/api/v1/notes', newNote, { withCredentials: true })
+      .then(response => {
+        addNote(response.data.note);
+        setNoteText("");
+        setNoteColor("#ffffff");
+        setTextColor("#000000");
+        setSelectedNoteColor("");
+        setSelectedTextColor("");
+        onClose();
+      })
+      .catch(error => {
+        console.error('Error creating note:', error.response ? error.response.data : error);
+      });
   };
 
   const handleNoteColorSelection = (color) => {

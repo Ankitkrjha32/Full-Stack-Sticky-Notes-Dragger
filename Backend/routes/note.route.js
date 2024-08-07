@@ -1,20 +1,12 @@
-import express from "express";
-import {
-  getAllNotes,
-  createNote,
-  updateNote,
-  deleteNote
-} from "../controllers/note.controller.js";
-import { authenticateToken } from "../middleware/auth.js";
+import express from 'express';
+import isAuthenticated from '../middlewares/isAuthenticated.js';
+import { createNote, getNotes, updateNote, deleteNote } from '../controllers/note.controller.js';
 
 const router = express.Router();
 
-// Middleware to protect routes
-router.use(authenticateToken);
-
-router.get("/", getAllNotes);
-router.post("/", createNote);
-router.put("/:id", updateNote);
-router.delete("/:id", deleteNote);
+router.post('/', isAuthenticated, createNote);
+router.get('/', isAuthenticated, getNotes);
+router.patch('/:id', isAuthenticated, updateNote);
+router.delete('/:id', isAuthenticated, deleteNote);
 
 export default router;
