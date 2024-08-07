@@ -1,4 +1,4 @@
-/* App.css */
+/* Existing Styles */
 @import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@200&display=swap');
 .app-container {
   position: relative;
@@ -148,6 +148,7 @@
 .modal button:hover {
   background: #319795;
 }
+
 .add-note-button {
   position: absolute;
   bottom: 20px;
@@ -172,6 +173,35 @@
 
 .add-note-button svg {
   color: #1a202c;
-  width: 30px;
-  height: 30px;
+}
+
+/* Additional Styles */
+.note-content textarea {
+  width: 100%;
+  height: 100px;
+  border: none;
+  background: transparent;
+  resize: none;
+}
+
+.note-footer .edit-button {
+  background: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.note-footer .edit-button:hover {
+  color: #0056b3;
+}
+
+.note-footer .delete-button {
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+}
+
+.note-footer .delete-button:hover {
+  color: #c82333;
 }
