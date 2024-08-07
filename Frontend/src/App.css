@@ -28,12 +28,14 @@
 }
 
 .note {
-  background: rgba(45, 55, 72, 0.7); /* Increased transparency */
+  position: absolute;
+  background: rgba(45, 55, 72, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 16px;
   width: 200px;
+  height: 200px;
   cursor: move;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -45,23 +47,16 @@
 }
 
 .note-content {
-  font-size: 14px;
-  color: #f0f0f0;
-  font-family: 'Cascadia Code', monospace;
+  color: #000000; /* Default text color */
+  word-wrap: break-word; /* Ensures text wraps inside the note box */
+  overflow-wrap: break-word; /* For older browsers */
+  white-space: pre-wrap; /* Keeps white spaces and line breaks */
 }
 
 .note-footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.note-due-date {
-  font-size: 12px;
-  color: #cbd5e0;
-  display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .delete-button {
@@ -118,16 +113,12 @@
 }
 
 .color-bubble {
-  width: 30px;
-  height: 30px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid transparent;
-  transition: border 0.3s ease;
+  margin-right: 4px;
 }
 
 .color-bubble.selected {
@@ -139,13 +130,23 @@
 }
 
 .custom-color-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   cursor: pointer;
+  margin-right: 4px;
+  /* border: none;
+  background: none;
+  cursor: pointer; */
+}
+
+.note-content textarea {
+  width: 100%;
+  height: 100px;
+  border: none;
+  background: transparent;
+  resize: none;
 }
 
 .modal button {
@@ -163,23 +164,26 @@
 }
 
 .add-note-button {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #38b2ac;
-  border: none;
-  border-radius: 50%;
   width: 60px;
   height: 60px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-size: 24px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .add-note-button:hover {
+  background-color: #45a049;
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(56, 178, 172, 0.7);
 }
@@ -188,43 +192,47 @@
   color: #1a202c;
 }
 
-.note-content textarea {
-  width: 100%;
-  height: 100px;
+.edit-button {
+  background: none;
   border: none;
-  background: transparent;
-  resize: none;
-}
-
-.note-footer .edit-button {
-  background: transparent;
-  border: none;
-  color: #007bff;
+  color: inherit;
   cursor: pointer;
+  margin-left: 8px;
 }
 
-.note-footer .edit-button:hover {
+.edit-button:hover {
   color: #0056b3;
 }
 
-.note-footer .delete-button {
-  background: transparent;
-  border: none;
-  color: #dc3545;
-  cursor: pointer;
+.modal-content {
+  max-width: 90%;
+  width: 500px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.note-footer .delete-button:hover {
-  color: #c82333;
-}
-.delete-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #ff6b6b;
-  font-size: 20px;
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.delete-button:hover {
-  color: #ff4f4f;
+.color-option {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-option.selected {
+  border: 2px solid #000;
+}
+
+.checkmark {
+  color: #fff;
 }
